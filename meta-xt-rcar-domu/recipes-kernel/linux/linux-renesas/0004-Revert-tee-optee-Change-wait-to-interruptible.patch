@@ -1,0 +1,35 @@
+From 846bbee43fd2d57845801c7ae6f38f568057c24c Mon Sep 17 00:00:00 2001
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Date: Mon, 7 Jun 2021 17:13:20 +0300
+Subject: [PATCH 4/7] Revert "tee: optee: Change wait to interruptible"
+
+This reverts commit 1c732a107c4541b40f38a70ad937495f1729ed28.
+---
+ drivers/tee/optee/rcar.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/tee/optee/rcar.c b/drivers/tee/optee/rcar.c
+index 6bb281b..89c5e76 100644
+--- a/drivers/tee/optee/rcar.c
++++ b/drivers/tee/optee/rcar.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /*
+- * Copyright (c) 2015-2019, Renesas Electronics Corporation
++ * Copyright (c) 2015-2018, Renesas Electronics Corporation
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License Version 2 as
+@@ -72,8 +72,7 @@ static int debug_log_kthread(void *arg)
+ 		}
+ 		if (thread_exit)
+ 			break;
+-		wait_event_interruptible(dlog->waitq,
+-			!list_empty(&dlog->queue));
++		wait_event(dlog->waitq, !list_empty(&dlog->queue));
+ 	}
+ 
+ 	pr_info("%s Exit\n", __func__);
+-- 
+2.7.4
+
