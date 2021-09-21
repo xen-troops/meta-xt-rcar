@@ -23,8 +23,7 @@ B = "${KBUILD_DIR}"
 BUILD ?= "release"
 
 RCAR_TARGET ?= "unknown"
-RCAR_TARGET_r8a7795-es2 ?= "r8a7795_es2"
-RCAR_TARGET_r8a7795-es3 ?= "r8a7795"
+RCAR_TARGET_r8a7795 ?= "r8a7795"
 RCAR_TARGET_r8a7796 ?= "r8a7796"
 RCAR_TARGET_r8a77965 ?= "r8a77965"
 
