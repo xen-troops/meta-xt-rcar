@@ -11,12 +11,38 @@ SRC_URI_append = " \
     file://xen-chosen.dtsi;subdir=git/arch/${ARCH}/boot/dts/renesas \
 "
 
-# M3
+# Salavotor-X(S) M3
 ADDITIONAL_DEVICE_TREES_r8a7796 = " \
     r8a77960-salvator-x-xen.dts \
     r8a77960-salvator-x-domd.dts \
     r8a77961-salvator-xs-2x4g-xen.dts \
     r8a77961-salvator-xs-2x4g-domd.dts \
+"
+
+# Salavotor-X(S) H3
+ADDITIONAL_DEVICE_TREES_r8a7795 = " \
+    r8a7795-salvator-x-4x2g-domd.dts \
+    r8a7795-salvator-x-4x2g-xen.dts \
+    r8a7795-salvator-x-domd.dts \
+    r8a7795-salvator-xs-4x2g-domd.dts \
+    r8a7795-salvator-xs-4x2g-xen.dts \
+    r8a7795-salvator-xs-domd.dts \
+    r8a7795-salvator-xs-xen.dts \
+    r8a7795-salvator-x-xen.dts \
+"
+
+# H3ULCB
+ADDITIONAL_DEVICE_TREES_h3ulcb = " \
+    r8a77951-h3ulcb-4x2g-domd.dts \
+    r8a77951-h3ulcb-4x2g-xen.dts \
+    r8a77951-h3ulcb-domd.dts \
+    r8a77951-h3ulcb-xen.dts \
+"
+
+# M3ULCB
+ADDITIONAL_DEVICE_TREES_m3ulcb = " \
+   r8a7796-m3ulcb-domd.dts \
+   r8a7796-m3ulcb-xen.dts \
 "
 
 # Ignore in-tree defconfig
