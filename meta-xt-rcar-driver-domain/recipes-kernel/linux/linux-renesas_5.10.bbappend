@@ -9,6 +9,7 @@ LINUX_VERSION = "5.10.0"
 SRC_URI_append = " \
     file://defconfig \
     file://xen-chosen.dtsi;subdir=git/arch/${ARCH}/boot/dts/renesas \
+    file://ulcb-ab.dtsi;subdir=git/arch/${ARCH}/boot/dts/renesas \
 "
 
 # Salavotor-X(S) M3
@@ -35,6 +36,10 @@ ADDITIONAL_DEVICE_TREES_r8a7795 = " \
 ADDITIONAL_DEVICE_TREES_h3ulcb = " \
     r8a77951-h3ulcb-4x2g-domd.dts \
     r8a77951-h3ulcb-4x2g-xen.dts \
+    r8a77951-h3ulcb-4x2g-kf-domd.dts \
+    r8a77951-h3ulcb-4x2g-kf-xen.dts \
+    r8a77951-h3ulcb-4x2g-ab-domd.dts \
+    r8a77951-h3ulcb-4x2g-ab-xen.dts \
     r8a77951-h3ulcb-domd.dts \
     r8a77951-h3ulcb-xen.dts \
 "
