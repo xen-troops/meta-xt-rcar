@@ -108,9 +108,6 @@ do_install() {
         install -m 755 ${D}/${sysconfdir}/init.d/rc.pvr ${D}/${exec_prefix}/bin/pvrinit
     fi
 
-    install -d ${DEPLOY_DIR_IMAGE}/xt-rcar
-    cp -rf ${D}/* ${DEPLOY_DIR_IMAGE}/xt-rcar
-
     sed -i 's/soc/passthrough/g' ${D}/etc/udev/rules.d/72-pvr-seat.rules
 }
 
