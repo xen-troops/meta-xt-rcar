@@ -57,8 +57,6 @@ module_do_install() {
     install -d ${D}/lib/modules/${KERNEL_VERSION}
     cd ${KBUILD_DIR}
     oe_runmake DISCIMAGE="${D}" install
-    install -d ${DEPLOY_DIR_IMAGE}/xt-rcar
-    cp -rf ${D}/* ${DEPLOY_DIR_IMAGE}/xt-rcar
 }
 
 # Ship the module symbol file to kerenel build dir
