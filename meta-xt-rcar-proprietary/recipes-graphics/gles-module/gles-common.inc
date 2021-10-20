@@ -3,7 +3,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 BRANCH = "1.11/5516664_5.1.0"
 SRCREV = "${AUTOREV}"
 EXCLUDED_APIS = "opencl vulkan"
-EXTRA_OEMAKE += "EXCLUDE_FENCE_SYNC_SUPPORT:=1"
+EXTRA_OEMAKE += "${@bb.utils.contains('XT_GUEST_INSTALL', 'doma', '', 'EXCLUDE_FENCE_SYNC_SUPPORT:=1', d)}"
 
 USE_GLES = "${@'1' if 'gsx' in '${MACHINE_FEATURES}' else '0'}"
 USE_GLES_WAYLAND = \
