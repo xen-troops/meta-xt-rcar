@@ -9,7 +9,6 @@ DEPENDS = " \
     bison-native \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'libgbm wayland-kms', '', d)} \
     virtual/kernel \
-    wayland-kms \
     llvmpvr \
 "
 
