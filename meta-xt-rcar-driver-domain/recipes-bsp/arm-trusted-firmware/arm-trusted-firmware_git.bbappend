@@ -1,7 +1,11 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 # Start cores in EL2 mode
-ATFW_OPT_append = ' RCAR_BL33_EXECUTION_EL=1'
+# Due to curent implementation of setting of build parameters,
+# we need to use ADDITIONAL_ATFW_OPT to specify execution mode.
+# Main reason is that ADDITIONAL_ATFW_OPT is used by
+# do_compile and do_ipl_opt_compile.
+ADDITIONAL_ATFW_OPT_append = ' RCAR_BL33_EXECUTION_EL=1'
 
 SRC_URI += "\
     file://0001-rcar-Use-UART-instead-of-Secure-DRAM-area-for-loggin.patch \
