@@ -49,7 +49,7 @@ ANDROID_EXTRA_OEMAKE = " \
 	       CFG_IN_TREE_EARLY_TAS=avb/023f8f1a-292a-432b-8fc4-de8471358067 \
 	       "
 
-EXTRA_OEMAKE += "${@bb.utils.contains('XT_DOMAINS', 'doma', '', '${ANDROID_EXTRA_OEMAKE}', d)}"
+EXTRA_OEMAKE += "${@bb.utils.contains('XT_DOMAINS', 'doma', '${ANDROID_EXTRA_OEMAKE}', '', d)}"
 
 OPTEE_ARCH_aarch64 = "arm64"
 
