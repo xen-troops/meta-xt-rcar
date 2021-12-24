@@ -77,3 +77,6 @@ addtask deploy before do_build after do_compile
 
 FILES_${PN} = ""
 FILES_${PN}-staticdev = "/usr/include/optee/"
+
+# Move tee.bin into 'firmware' folder
+inherit collect_firmware

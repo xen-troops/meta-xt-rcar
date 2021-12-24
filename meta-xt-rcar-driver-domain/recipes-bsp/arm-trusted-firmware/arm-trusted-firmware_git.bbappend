@@ -1,5 +1,8 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
+# Move IPLs into 'firmware' folder
+inherit collect_firmware
+
 # Start cores in EL2 mode
 ATFW_OPT_append = ' RCAR_BL33_EXECUTION_EL=1'
 
