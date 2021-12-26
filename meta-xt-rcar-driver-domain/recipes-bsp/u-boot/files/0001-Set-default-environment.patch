@@ -1,0 +1,81 @@
+From 3410fee6868e659c56be4fa21a4352ca4b12f152 Mon Sep 17 00:00:00 2001
+From: Ruslan Shymkevych <ruslan_shymkevych@epam.com>
+Date: Sun, 26 Dec 2021 23:50:28 +0200
+Subject: [PATCH] Set default environment
+
+Add following commands to default environment:
+  - boot from network
+  - boot from eMMC
+  - boot from SD0/SD3
+  - flash loaders into eMMC
+
+To reset the u-boot environment to default state:
+```
+env default -a -f
+saveenv
+```
+
+Signed-off-by: Ruslan Shymkevych <ruslan_shymkevych@epam.com>
+---
+ include/configs/rcar-gen3-common.h | 45 +++++++++++++++++++++++++++++-
+ 1 file changed, 44 insertions(+), 1 deletion(-)
+
+diff --git a/include/configs/rcar-gen3-common.h b/include/configs/rcar-gen3-common.h
+index b9762f5beb..ef37171f2e 100644
+--- a/include/configs/rcar-gen3-common.h
++++ b/include/configs/rcar-gen3-common.h
+@@ -59,7 +59,50 @@
+ /* ENV setting */
+ 
+ #define CONFIG_EXTRA_ENV_SETTINGS	\
+-	"bootm_size=0x10000000\0"
++	"bootm_size=0x10000000\0" \
++	"ipaddr=192.168.1.10\0" \
++	"serverip 192.168.1.100\0" \
++	"ethact=ravb\0" \
++	\
++	"initrd_high=0xffffffffffffffff\0" \
++	"tftp_xen_load=tftp 0x48080000 xen\0" \
++	"tftp_dtb_load=tftp 0x48000000 xen.dtb; fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device nfs\0" \
++	"tftp_kernel_load=tftp 0x8a000000 Image\0" \
++	"tftp_xenpolicy_load=tftp 0x8c000000 xenpolicy\0" \
++	"tftp_initramfs_load=tftp 0x84000000 uInitramfs\0" \
++	"bootcmd_tftp=run tftp_xen_load; run tftp_dtb_load; run tftp_kernel_load; run tftp_xenpolicy_load; run tftp_initramfs_load; bootm 0x48080000 0x84000000 0x48000000\0" \
++	\
++	"sd0_xen_load=ext2load mmc 0:1 0x48080000 xen\0" \
++	"sd0_dtb_load=ext2load mmc 0:1 0x48000000 xen.dtb; fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device mmcblk1\0" \
++	"sd0_kernel_load=ext2load mmc 0:1 0x8a000000 Image\0" \
++	"sd0_xenpolicy_load=ext2load mmc 0:1 0x8c000000 xenpolicy\0" \
++	"sd0_initramfs_load=ext2load mmc 0:1 0x84000000 uInitramfs\0" \
++	"bootcmd_sd0=run sd0_xen_load; run sd0_dtb_load; run sd0_kernel_load; run sd0_xenpolicy_load; run sd0_initramfs_load; bootm 0x48080000 0x84000000 0x48000000\0" \
++	\
++	"sd3_xen_load=ext2load mmc 2:1 0x48080000 xen\0" \
++	"sd3_dtb_load=ext2load mmc 2:1 0x48000000 xen.dtb; fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device mmcblk2\0" \
++	"sd3_kernel_load=ext2load mmc 2:1 0x8a000000 Image\0" \
++	"sd3_xenpolicy_load=ext2load mmc 2:1 0x8c000000 xenpolicy\0" \
++	"sd3_initramfs_load=ext2load mmc 2:1 0x84000000 uInitramfs\0" \
++	"bootcmd_sd3=run sd3_xen_load; run sd3_dtb_load; run sd3_kernel_load; run sd3_xenpolicy_load; run sd3_initramfs_load; bootm 0x48080000 0x84000000 0x48000000\0" \
++	\
++	"emmc_xen_load=ext2load mmc 1:1 0x48080000 xen\0" \
++	"emmc_dtb_load=ext2load mmc 1:1 0x48000000 xen.dtb; fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device mmcblk0\0" \
++	"emmc_kernel_load=ext2load mmc 1:1 0x8a000000 Image\0" \
++	"emmc_xenpolicy_load=ext2load mmc 1:1 0x8c000000 xenpolicy\0" \
++	"emmc_initramfs_load=ext2load mmc 1:1 0x84000000 uInitramfs\0" \
++	"bootcmd_emmc=run emmc_xen_load; run emmc_dtb_load; run emmc_kernel_load; run emmc_xenpolicy_load; run emmc_initramfs_load; bootm 0x48080000 0x84000000 0x48000000\0" \
++	\
++	"bootcmd=run bootcmd_emmc\0" \
++	\
++	"flash_bootparam_sa0=tftp 0x48000000 bootparam_sa0.bin; mmc dev 1 1; mmc write 0x48000000 0x0 0x1E\0" \
++	"flash_bl2=tftp 0x48000000 bl2.bin; mmc dev 1 1; mmc write 0x48000000 0x1E 0x162\0" \
++	"flash_cert_header_sa6=tftp 0x48000000 cert_header_sa6_emmc.bin; mmc dev 1 1; mmc write 0x48000000 0x180 0x80\0" \
++	"flash_bl31=tftp 0x48000000 bl31.bin; mmc dev 1 1; mmc write 0x48000000 0x200 0xE00\0" \
++	"flash_tee=tftp 0x48000000 tee.bin; mmc dev 1 1; mmc write 0x48000000 0x1000 0x600\0" \
++	"flash_u_boot=tftp 0x48000000 u-boot.bin; mmc dev 1 2; mmc write 0x48000000 0x0 0x800\0" \
++	"flash_z_loaders=run flash_bootparam_sa0; run flash_bl2; run flash_cert_header_sa6; run flash_bl31; run flash_tee; run flash_u_boot\0" \
++
+ 
+ #define CONFIG_BOOTCOMMAND	\
+ 	"tftp 0x48080000 Image; " \
+-- 
+2.17.1
+
