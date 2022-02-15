@@ -12,7 +12,7 @@ SRC_URI_append = " \
     file://ulcb-ab.dtsi;subdir=git/arch/${ARCH}/boot/dts/renesas \
 "
 
-ADDITIONAL_DEVICE_TREES = "${XT_DEVICE_TREES}"
+ADDITIONAL_DEVICE_TREES ?= "${XT_DEVICE_TREES}"
 
 # Ignore in-tree defconfig
 KBUILD_DEFCONFIG = ""
