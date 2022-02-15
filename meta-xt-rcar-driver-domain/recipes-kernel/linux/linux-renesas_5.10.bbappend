@@ -7,7 +7,6 @@ SRCREV = "${AUTOREV}"
 LINUX_VERSION = "5.10.0"
 
 SRC_URI_append = " \
-    file://defconfig \
     file://xen-chosen.dtsi;subdir=git/arch/${ARCH}/boot/dts/renesas \
     file://ulcb-ab.dtsi;subdir=git/arch/${ARCH}/boot/dts/renesas \
 "
