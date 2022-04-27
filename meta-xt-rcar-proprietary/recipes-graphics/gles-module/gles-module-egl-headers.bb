@@ -1,10 +1,17 @@
-require gles-common.inc
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+PVRUM_URL ?= "git://git@gitpct.epam.com/epmd-aepr/pvr_um_vgpu_img.git"
+PVRUM_BRANCH = "1.11/5516664_5.1.0"
+SRCREV = "${AUTOREV}"
 
-SRC_URI_append = " \
+SRC_URI = " \
+    ${PVRUM_URL};protocol=ssh;branch=${PVRUM_BRANCH} \
     file://GLES-gl3ext.h.patch \
 "
+
+S = "${WORKDIR}/git"
+
+COMPATIBLE_MACHINE = "(r8a7795|r8a7796)"
+PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 DESCRIPTION = "PowerVR GPU user EGL header files"
 LICENSE = "CLOSED"
