@@ -1,0 +1,177 @@
+From a340739c9f96b00e8a57bd915a82b0691e0a8669 Mon Sep 17 00:00:00 2001
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Date: Sun, 25 Dec 2022 17:53:22 +0200
+Subject: [PATCH 1/8] Revert "tee: optee: Added optee_rcar_suspend_sync and
+ optee_rcar_resume"
+
+This reverts commit e813427e0c6fa06c432a07368707a8158d6bbfc6.
+---
+ drivers/tee/optee/call.c          | 40 -------------------------------
+ drivers/tee/optee/optee_private.h |  3 ---
+ drivers/tee/optee/optee_smc.h     | 28 ----------------------
+ drivers/tee/optee/rcar.c          | 33 ++++++++++++++++++++-----
+ 4 files changed, 27 insertions(+), 77 deletions(-)
+
+diff --git a/drivers/tee/optee/call.c b/drivers/tee/optee/call.c
+index ac23c0d80abb..0e495292ae48 100644
+--- a/drivers/tee/optee/call.c
++++ b/drivers/tee/optee/call.c
+@@ -393,46 +393,6 @@ int optee_cancel_req(struct tee_context *ctx, u32 cancel_id, u32 session)
+ 	return 0;
+ }
+ 
+-/**
+- * optee_rcar_suspend_sync() - Synchronize until OP-TEE allows the transition
+- * of 'Suspend to RAM'
+- * @optee:	main service struct
+- */
+-void optee_rcar_suspend_sync(struct optee *optee)
+-{
+-	struct optee_call_waiter w;
+-	const unsigned long RCAR_CODE_BUSY = 0;
+-
+-	/* We need to retry until secure world isn't busy. */
+-	optee_cq_wait_init(&optee->call_queue, &w);
+-	while (true) {
+-		struct arm_smccc_res res;
+-
+-		optee->invoke_fn(OPTEE_SMC_RCAR_SUSPEND_SYNC, 0, 0, 0, 0, 0,
+-				 0, 0, &res);
+-		if (res.a0 != RCAR_CODE_BUSY)
+-			break;
+-		optee_cq_wait_for_completion(&optee->call_queue, &w);
+-	}
+-	optee_cq_wait_final(&optee->call_queue, &w);
+-}
+-
+-/**
+- * optee_rcar_resume() - Notifies OP-TEE of the resume of 'Suspend to RAM'
+- * @optee:	main service struct
+- */
+-void optee_rcar_resume(struct optee *optee)
+-{
+-	struct optee_call_waiter w;
+-	struct arm_smccc_res res;
+-
+-	optee_cq_wait_init(&optee->call_queue, &w);
+-
+-	optee->invoke_fn(OPTEE_SMC_RCAR_RESUME, 0, 0, 0, 0, 0, 0, 0, &res);
+-
+-	optee_cq_wait_final(&optee->call_queue, &w);
+-}
+-
+ /**
+  * optee_enable_shm_cache() - Enables caching of some shared memory allocation
+  *			      in OP-TEE
+diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
+index 38133d2842fd..e25b216a14ef 100644
+--- a/drivers/tee/optee/optee_private.h
++++ b/drivers/tee/optee/optee_private.h
+@@ -175,9 +175,6 @@ int optee_from_msg_param(struct tee_param *params, size_t num_params,
+ int optee_to_msg_param(struct optee_msg_param *msg_params, size_t num_params,
+ 		       const struct tee_param *params);
+ 
+-void optee_rcar_suspend_sync(struct optee *optee);
+-void optee_rcar_resume(struct optee *optee);
+-
+ u64 *optee_allocate_pages_list(size_t num_entries);
+ void optee_free_pages_list(void *array, size_t num_entries);
+ void optee_fill_pages_list(u64 *dst, struct page **pages, int num_pages,
+diff --git a/drivers/tee/optee/optee_smc.h b/drivers/tee/optee/optee_smc.h
+index 3e6955c064f6..777ad54d4c2c 100644
+--- a/drivers/tee/optee/optee_smc.h
++++ b/drivers/tee/optee/optee_smc.h
+@@ -443,32 +443,4 @@ static inline bool __optee_smc_return_is_rpc(u32 ret)
+ 			OPTEE_SMC_RETURN_RPC_PREFIX;
+ }
+ 
+-/*
+- * Synchronize until OP-TEE allows the transition of 'Suspend to RAM'
+- *
+- * When secure world is idle this function returns OPTEE_SMC_RETURN_OK
+- * and the cache is enabled.
+- * If secure world isn't idle OPTEE_SMC_RETURN_EBUSY is returned.
+- *
+- * Call register usage:
+- * a0	SMC Function ID, OPTEE_SMC_RCAR_SUSPEND_SYNC
+- * a1-6	Not used
+- * a7	Hypervisor Client ID register
+- *
+- * Normal return register usage:
+- * a0	OPTEE_SMC_RETURN_OK
+- * a1-7	Preserved
+- *
+- * Not idle return register usage:
+- * a0	OPTEE_SMC_RETURN_EBUSY
+- * a1-7	Preserved
+- */
+-#define OPTEE_SMC_FUNCID_RCAR_SUSPEND_SYNC	20
+-#define OPTEE_SMC_RCAR_SUSPEND_SYNC \
+-	OPTEE_SMC_FAST_CALL_VAL(OPTEE_SMC_FUNCID_RCAR_SUSPEND_SYNC)
+-
+-#define OPTEE_SMC_FUNCID_RCAR_RESUME		21
+-#define OPTEE_SMC_RCAR_RESUME \
+-	OPTEE_SMC_FAST_CALL_VAL(OPTEE_SMC_FUNCID_RCAR_RESUME)
+-
+ #endif /* OPTEE_SMC_H */
+diff --git a/drivers/tee/optee/rcar.c b/drivers/tee/optee/rcar.c
+index 81fa77360ac0..38e5fea74dd4 100644
+--- a/drivers/tee/optee/rcar.c
++++ b/drivers/tee/optee/rcar.c
+@@ -41,6 +41,7 @@ static struct rcar_debug_log_info dlog_info;
+ #define TEE_CORE_NB_CORE   (8U)
+ 
+ static int debug_log_kthread(void *arg);
++static int tz_rcar_suspend(void);
+ static int tz_rcar_power_event(struct notifier_block *this,
+ 	unsigned long event, void *ptr);
+ static int rcar_optee_add_suspend_callback(void);
+@@ -123,6 +124,31 @@ void handle_rpc_func_cmd_debug_log(struct optee_msg_arg *arg)
+ 	}
+ }
+ 
++/*
++ * It makes no sense to go into suspend while the OP-TEE is running.
++ */
++static int tz_rcar_suspend(void)
++{
++	int empty;
++	int ret;
++	struct optee *optee;
++
++	optee = rcar_optee;
++
++	mutex_lock(&optee->call_queue.mutex);
++	empty = list_empty(&optee->call_queue.waiters);
++	mutex_unlock(&optee->call_queue.mutex);
++
++	if (empty) {
++		ret = NOTIFY_DONE;
++	} else {
++		pr_err("Linux cannot be suspended while the OP-TEE is in use\n");
++		ret = notifier_from_errno(-EBUSY);
++	}
++
++	return ret;
++}
++
+ static int tz_rcar_power_event(struct notifier_block *this,
+ 	unsigned long event, void *ptr)
+ {
+@@ -130,12 +156,7 @@ static int tz_rcar_power_event(struct notifier_block *this,
+ 
+ 	switch (event) {
+ 	case PM_SUSPEND_PREPARE:
+-		optee_rcar_suspend_sync(rcar_optee);
+-		ret = NOTIFY_DONE;
+-		break;
+-	case PM_POST_SUSPEND:
+-		optee_rcar_resume(rcar_optee);
+-		ret = NOTIFY_DONE;
++		ret = tz_rcar_suspend();
+ 		break;
+ 	default:
+ 		ret = NOTIFY_DONE;
+-- 
+2.34.1
+

@@ -1,23 +1,23 @@
-From f29bda22658ef9b1b79f626d9081a6785e8a5ff6 Mon Sep 17 00:00:00 2001
+From 3694aefb5e44cd1f5eb61e39288b8c497b98eff7 Mon Sep 17 00:00:00 2001
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date: Mon, 7 Jun 2021 17:14:04 +0300
-Subject: [PATCH 7/7] Revert "tee: optee: add r-car original function"
+Date: Sun, 25 Dec 2022 17:54:32 +0200
+Subject: [PATCH 8/8] Revert "tee: optee: add r-car original function"
 
-This reverts commit 807697420196f53a36da9f948f54f09de602629f.
+This reverts commit f8657e38a41cbab5a3649896c53b8c1c5042c986.
 ---
  drivers/tee/optee/Makefile       |   1 -
- drivers/tee/optee/core.c         |  20 +----
- drivers/tee/optee/optee_rcar.h   |  41 ---------
- drivers/tee/optee/rcar.c         | 184 ---------------------------------------
- drivers/tee/optee/rcar_version.h |  12 ---
- drivers/tee/optee/rpc.c          |  15 ----
+ drivers/tee/optee/core.c         |  20 +---
+ drivers/tee/optee/optee_rcar.h   |  41 -------
+ drivers/tee/optee/rcar.c         | 184 -------------------------------
+ drivers/tee/optee/rcar_version.h |  12 --
+ drivers/tee/optee/rpc.c          |  15 ---
  6 files changed, 1 insertion(+), 272 deletions(-)
  delete mode 100644 drivers/tee/optee/optee_rcar.h
  delete mode 100644 drivers/tee/optee/rcar.c
  delete mode 100644 drivers/tee/optee/rcar_version.h
 
 diff --git a/drivers/tee/optee/Makefile b/drivers/tee/optee/Makefile
-index c2376b7..56263ae 100644
+index c2376b7bf8a3..56263ae3b1d7 100644
 --- a/drivers/tee/optee/Makefile
 +++ b/drivers/tee/optee/Makefile
 @@ -6,4 +6,3 @@ optee-objs += rpc.o
@@ -26,7 +26,7 @@ index c2376b7..56263ae 100644
  optee-objs += device.o
 -optee-objs += rcar.o
 diff --git a/drivers/tee/optee/core.c b/drivers/tee/optee/core.c
-index cbcfac1..cf4718c 100644
+index fd8f0e6397e2..63542c1cc291 100644
 --- a/drivers/tee/optee/core.c
 +++ b/drivers/tee/optee/core.c
 @@ -1,17 +1,6 @@
@@ -56,7 +56,7 @@ index cbcfac1..cf4718c 100644
  #include "shm_pool.h"
  
  #define DRIVER_NAME "optee"
-@@ -598,7 +585,6 @@ static optee_invoke_fn *get_invoke_func(struct device *dev)
+@@ -588,7 +575,6 @@ static optee_invoke_fn *get_invoke_func(struct device *dev)
  static int optee_remove(struct platform_device *pdev)
  {
  	struct optee *optee = platform_get_drvdata(pdev);
@@ -64,7 +64,7 @@ index cbcfac1..cf4718c 100644
  
  	/*
  	 * Ask OP-TEE to free all cached shared memory objects to decrease
-@@ -703,10 +689,6 @@ static int optee_probe(struct platform_device *pdev)
+@@ -693,10 +679,6 @@ static int optee_probe(struct platform_device *pdev)
  	if (rc)
  		goto err;
  
@@ -75,7 +75,7 @@ index cbcfac1..cf4718c 100644
  	mutex_init(&optee->call_queue.mutex);
  	INIT_LIST_HEAD(&optee->call_queue.waiters);
  	optee_wait_queue_init(&optee->wait_queue);
-@@ -766,6 +748,6 @@ module_platform_driver(optee_driver);
+@@ -756,6 +738,6 @@ module_platform_driver(optee_driver);
  MODULE_AUTHOR("Linaro");
  MODULE_DESCRIPTION("OP-TEE driver");
  MODULE_SUPPORTED_DEVICE("");
@@ -85,7 +85,7 @@ index cbcfac1..cf4718c 100644
  MODULE_ALIAS("platform:optee");
 diff --git a/drivers/tee/optee/optee_rcar.h b/drivers/tee/optee/optee_rcar.h
 deleted file mode 100644
-index 2fa00c9..00000000
+index 2fa00c903332..000000000000
 --- a/drivers/tee/optee/optee_rcar.h
 +++ /dev/null
 @@ -1,41 +0,0 @@
@@ -132,7 +132,7 @@ index 2fa00c9..00000000
 -#endif /* OPTEE_RCAR_H */
 diff --git a/drivers/tee/optee/rcar.c b/drivers/tee/optee/rcar.c
 deleted file mode 100644
-index 768c2b5..00000000
+index 768c2b55333e..000000000000
 --- a/drivers/tee/optee/rcar.c
 +++ /dev/null
 @@ -1,184 +0,0 @@
@@ -322,7 +322,7 @@ index 768c2b5..00000000
 -}
 diff --git a/drivers/tee/optee/rcar_version.h b/drivers/tee/optee/rcar_version.h
 deleted file mode 100644
-index e2b005b..00000000
+index e2b005b6d45f..000000000000
 --- a/drivers/tee/optee/rcar_version.h
 +++ /dev/null
 @@ -1,12 +0,0 @@
@@ -339,7 +339,7 @@ index e2b005b..00000000
 -
 -#endif /* RCAR_VERSION_H */
 diff --git a/drivers/tee/optee/rpc.c b/drivers/tee/optee/rpc.c
-index 7faa26b..1e3614e 100644
+index a8d2dcceab35..6aa4e997b895 100644
 --- a/drivers/tee/optee/rpc.c
 +++ b/drivers/tee/optee/rpc.c
 @@ -1,17 +1,6 @@
@@ -360,15 +360,15 @@ index 7faa26b..1e3614e 100644
   */
  
  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-@@ -23,7 +12,6 @@
- #include <linux/tee_drv.h>
+@@ -24,7 +13,6 @@
+ #include <linux/freezer.h>
  #include "optee_private.h"
  #include "optee_smc.h"
 -#include "optee_rcar.h"
  
  struct wq_entry {
  	struct list_head link;
-@@ -486,9 +474,6 @@ static void handle_rpc_func_cmd(struct tee_context *ctx, struct optee *optee,
+@@ -494,9 +482,6 @@ static void handle_rpc_func_cmd(struct tee_context *ctx, struct optee *optee,
  	case OPTEE_MSG_RPC_CMD_SHM_FREE:
  		handle_rpc_func_cmd_shm_free(ctx, arg);
  		break;
@@ -379,5 +379,5 @@ index 7faa26b..1e3614e 100644
  		handle_rpc_func_cmd_i2c_transfer(ctx, arg);
  		break;
 -- 
-2.7.4
+2.34.1
 
