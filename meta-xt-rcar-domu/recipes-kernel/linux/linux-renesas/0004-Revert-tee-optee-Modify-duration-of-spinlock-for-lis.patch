@@ -1,16 +1,16 @@
-From 799411568f24d26032ac6a29cfa175caece595e1 Mon Sep 17 00:00:00 2001
+From 3ad193a5c7dee161025da0584a2be5a28e4d9c48 Mon Sep 17 00:00:00 2001
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date: Mon, 7 Jun 2021 17:13:12 +0300
-Subject: [PATCH 3/7] Revert "tee: optee: Modify duration of spinlock for list"
+Date: Sun, 25 Dec 2022 17:53:48 +0200
+Subject: [PATCH 4/8] Revert "tee: optee: Modify duration of spinlock for list"
 
-This reverts commit 947d631c5087d18a83c03738806fd0c1cab708eb.
+This reverts commit be03509c3cdb100567a0a60dec70348070729534.
 ---
  drivers/tee/optee/rcar.c         | 11 +++--------
  drivers/tee/optee/rcar_version.h |  2 +-
  2 files changed, 4 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/tee/optee/rcar.c b/drivers/tee/optee/rcar.c
-index 12dbce94..6bb281b 100644
+index 12dbce947b06..6bb281bb5f7f 100644
 --- a/drivers/tee/optee/rcar.c
 +++ b/drivers/tee/optee/rcar.c
 @@ -53,18 +53,13 @@ static int debug_log_kthread(void *arg)
@@ -46,7 +46,7 @@ index 12dbce94..6bb281b 100644
  			break;
  		wait_event_interruptible(dlog->waitq,
 diff --git a/drivers/tee/optee/rcar_version.h b/drivers/tee/optee/rcar_version.h
-index bc3e9447..2a0502f 100644
+index bc3e9447c6bf..2a0502f96bc2 100644
 --- a/drivers/tee/optee/rcar_version.h
 +++ b/drivers/tee/optee/rcar_version.h
 @@ -7,6 +7,6 @@
@@ -58,5 +58,5 @@ index bc3e9447..2a0502f 100644
  
  #endif /* RCAR_VERSION_H */
 -- 
-2.7.4
+2.34.1
 

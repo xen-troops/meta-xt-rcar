@@ -1,10 +1,10 @@
-From 0840f94be5da78a686761a85502013902eee122a Mon Sep 17 00:00:00 2001
+From 64534b5c67c7b8f5dfee163fe681ced940a52c51 Mon Sep 17 00:00:00 2001
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date: Mon, 7 Jun 2021 17:13:04 +0300
-Subject: [PATCH 2/7] Revert "tee: optee: add SMC of START_DLOG_OUTPUT to
+Date: Sun, 25 Dec 2022 17:53:41 +0200
+Subject: [PATCH 3/8] Revert "tee: optee: add SMC of START_DLOG_OUTPUT to
  rcar_optee_init_debug_log()"
 
-This reverts commit d91a70942b3ceda1b13f2a347878d29775221ef3.
+This reverts commit c8e02347a488b1a917ed10856f1ee21a4476c243.
 ---
  drivers/tee/optee/optee_rcar.h   |  9 +--------
  drivers/tee/optee/rcar.c         | 16 ++++------------
@@ -12,7 +12,7 @@ This reverts commit d91a70942b3ceda1b13f2a347878d29775221ef3.
  3 files changed, 7 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/tee/optee/optee_rcar.h b/drivers/tee/optee/optee_rcar.h
-index 6d516d7..2fa00c9 100644
+index 6d516d7879dd..2fa00c903332 100644
 --- a/drivers/tee/optee/optee_rcar.h
 +++ b/drivers/tee/optee/optee_rcar.h
 @@ -1,6 +1,6 @@
@@ -38,7 +38,7 @@ index 6d516d7..2fa00c9 100644
  struct rcar_debug_log_info {
  	wait_queue_head_t waitq;
 diff --git a/drivers/tee/optee/rcar.c b/drivers/tee/optee/rcar.c
-index c368da7..12dbce94 100644
+index c368da79ddc9..12dbce947b06 100644
 --- a/drivers/tee/optee/rcar.c
 +++ b/drivers/tee/optee/rcar.c
 @@ -1,6 +1,6 @@
@@ -98,7 +98,7 @@ index c368da7..12dbce94 100644
  			rcar_optee_del_suspend_callback();
  	}
 diff --git a/drivers/tee/optee/rcar_version.h b/drivers/tee/optee/rcar_version.h
-index c14e7f9..bc3e9447 100644
+index c14e7f914942..bc3e9447c6bf 100644
 --- a/drivers/tee/optee/rcar_version.h
 +++ b/drivers/tee/optee/rcar_version.h
 @@ -1,12 +1,12 @@
@@ -117,5 +117,5 @@ index c14e7f9..bc3e9447 100644
  
  #endif /* RCAR_VERSION_H */
 -- 
-2.7.4
+2.34.1
 

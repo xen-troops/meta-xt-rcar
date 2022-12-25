@@ -1,15 +1,15 @@
-From 846bbee43fd2d57845801c7ae6f38f568057c24c Mon Sep 17 00:00:00 2001
+From c7ce4f98378b8cb2416f1ae4dcc001e1a8e9a41c Mon Sep 17 00:00:00 2001
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date: Mon, 7 Jun 2021 17:13:20 +0300
-Subject: [PATCH 4/7] Revert "tee: optee: Change wait to interruptible"
+Date: Sun, 25 Dec 2022 17:54:10 +0200
+Subject: [PATCH 5/8] Revert "tee: optee: Change wait to interruptible"
 
-This reverts commit 1c732a107c4541b40f38a70ad937495f1729ed28.
+This reverts commit 8ca552d5a9d3e68f0e4205129a66dca97c71d4fa.
 ---
  drivers/tee/optee/rcar.c | 5 ++---
  1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/tee/optee/rcar.c b/drivers/tee/optee/rcar.c
-index 6bb281b..89c5e76 100644
+index 6bb281bb5f7f..89c5e7633d6c 100644
 --- a/drivers/tee/optee/rcar.c
 +++ b/drivers/tee/optee/rcar.c
 @@ -1,6 +1,6 @@
@@ -31,5 +31,5 @@ index 6bb281b..89c5e76 100644
  
  	pr_info("%s Exit\n", __func__);
 -- 
-2.7.4
+2.34.1
 
