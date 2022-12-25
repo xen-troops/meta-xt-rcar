@@ -1,17 +1,17 @@
-From fa505fe7da53e1f0d7c5e2b17215bfabe5208ca5 Mon Sep 17 00:00:00 2001
+From c841fe6907417e6d2e9b2e343658eaf03158ad23 Mon Sep 17 00:00:00 2001
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date: Mon, 7 Jun 2021 17:13:30 +0300
-Subject: [PATCH 5/7] Revert "tee: optee: Change workqueue to kthread in debug
+Date: Sun, 25 Dec 2022 17:54:21 +0200
+Subject: [PATCH 6/8] Revert "tee: optee: Change workqueue to kthread in debug
  log function"
 
-This reverts commit eb678fffec316d7ee3e93d40cde4aca3330f5ffb.
+This reverts commit 41f0e4d2e1a5e0675afe79275617c15f9f1d9c00.
 ---
- drivers/tee/optee/rcar.c         | 99 +++++++---------------------------------
+ drivers/tee/optee/rcar.c         | 99 ++++++--------------------------
  drivers/tee/optee/rcar_version.h |  4 +-
  2 files changed, 19 insertions(+), 84 deletions(-)
 
 diff --git a/drivers/tee/optee/rcar.c b/drivers/tee/optee/rcar.c
-index 89c5e76..768c2b5 100644
+index 89c5e7633d6c..768c2b55333e 100644
 --- a/drivers/tee/optee/rcar.c
 +++ b/drivers/tee/optee/rcar.c
 @@ -1,6 +1,6 @@
@@ -189,7 +189,7 @@ index 89c5e76..768c2b5 100644
  	rcar_optee_del_suspend_callback();
  }
 diff --git a/drivers/tee/optee/rcar_version.h b/drivers/tee/optee/rcar_version.h
-index 2a0502f..e2b005b 100644
+index 2a0502f96bc2..e2b005b6d45f 100644
 --- a/drivers/tee/optee/rcar_version.h
 +++ b/drivers/tee/optee/rcar_version.h
 @@ -1,12 +1,12 @@
@@ -208,5 +208,5 @@ index 2a0502f..e2b005b 100644
  
  #endif /* RCAR_VERSION_H */
 -- 
-2.7.4
+2.34.1
 
