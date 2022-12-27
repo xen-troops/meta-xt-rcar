@@ -21,9 +21,6 @@ PR = "r1"
 
 do_compile[noexec] = "1"
 
-# The recipe needs headers from virtual/mesa.
-do_populate_sysroot[depends] += "virtual/mesa:do_populate_sysroot"
-
 do_configure() {
     :
 }
