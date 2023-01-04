@@ -7,3 +7,5 @@ python () {
         d.appendVar('FILESEXTRAPATHS', '${DEPLOY_DIR_IMAGE}/prebuilt/${XT_DOM_NAME}:')
         d.appendVarFlag('do_fetch', 'depends', ' gles-um-compile:do_deploy ')
 }
+
+PROVIDES += "virtual/libgl"
