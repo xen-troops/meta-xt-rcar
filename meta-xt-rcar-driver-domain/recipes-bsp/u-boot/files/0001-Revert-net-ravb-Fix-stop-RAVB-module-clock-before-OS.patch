@@ -1,0 +1,27 @@
+From 49f9081fbf92cc2decc6b1ff9f0e6f633c150778 Mon Sep 17 00:00:00 2001
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Date: Wed, 4 Jan 2023 19:32:12 +0200
+Subject: [PATCH] Revert "net: ravb: Fix stop RAVB module clock before OS
+ startup"
+
+This reverts commit 6b43fc4c901b99b7b447da6d742676a3868748e6.
+
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+ drivers/net/ravb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ravb.c b/drivers/net/ravb.c
+index 08ccec9ad1..b0c73e721c 100644
+--- a/drivers/net/ravb.c
++++ b/drivers/net/ravb.c
+@@ -691,5 +691,5 @@ U_BOOT_DRIVER(eth_ravb) = {
+ 	.ops		= &ravb_ops,
+ 	.priv_auto_alloc_size = sizeof(struct ravb_priv),
+ 	.platdata_auto_alloc_size = sizeof(struct eth_pdata),
+-	.flags		= DM_FLAG_ALLOC_PRIV_DMA | DM_FLAG_OS_PREPARE,
++	.flags		= DM_FLAG_ALLOC_PRIV_DMA,
+ };
+-- 
+2.34.1
+
