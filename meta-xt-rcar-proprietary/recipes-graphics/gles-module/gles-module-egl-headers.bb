@@ -5,7 +5,6 @@ SRCREV = "${AUTOREV}"
 
 SRC_URI = " \
     ${PVRUM_URL};protocol=ssh;branch=${PVRUM_BRANCH} \
-    file://GLES-gl3ext.h.patch \
 "
 
 S = "${WORKDIR}/git"
