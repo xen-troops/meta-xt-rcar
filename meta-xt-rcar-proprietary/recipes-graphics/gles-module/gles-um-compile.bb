@@ -1,7 +1,7 @@
 DESCRIPTION = "PowerVR GPU user module built from sources"
 LICENSE = "CLOSED"
 
-inherit deploy nopackages
+inherit deploy nopackages pkgconfig
 
 PV = "1.11"
 
