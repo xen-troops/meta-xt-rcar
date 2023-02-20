@@ -1,0 +1,11 @@
+[Unit]
+Description=Preinit weston
+Before=weston.service displbe.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/preinit-weston.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=weston.service displbe.service
