@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Important note
 # Patch ("...-Add-multichannel-audio-ranges-...") relates to Renesas' kernel
@@ -10,6 +10,6 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 #   b) to ride on top of this meta-xt-cogent-fixups layer which is used only in the case of KF.
 # That's why option b) was selected and "...-Add-multichannel-audio-ranges-..."
 # is located inside this layer.
-SRC_URI_append = " \
+SRC_URI:append = " \
     file://0001-r8a7795-6-65-.dtsi-Add-multichannel-audio-ranges-tha.patch \
 "

@@ -1,5 +1,5 @@
-KERNEL_MODULE_AUTOLOAD_append = " vspm_if"
+KERNEL_MODULE_AUTOLOAD:append = " vspm_if"
 
-FILES_${PN}_append = " \
+FILES:${PN}:append = " \
     ${sysconfdir}/modules-load.d \
 "

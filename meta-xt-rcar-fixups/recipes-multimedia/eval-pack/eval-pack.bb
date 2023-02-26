@@ -25,7 +25,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 # - unpack `*.tar.*` files from `${L2_DIR}/*.zip` into ${MM_EVA_L3_DIR}.
 #
 # Any recipe that want to use these unpacked L3 files need to use following lines:
-#   FILESEXTRAPATHS_append := "${MM_EVA_L3_DIR}:"
+#   FILESEXTRAPATHS:append := "${MM_EVA_L3_DIR}:"
 #   require include/eval-pack.inc
 #   do_fetch[depends] = "eval-pack:do_unpack"
 #####

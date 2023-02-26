@@ -31,4 +31,4 @@
 #           (dependent Tasks ['wayland-kms_1.6.0.bb:do_package'])
 #
 DEPENDS += " gles-module-egl-headers"
-DEPENDS_remove = "gles-user-module"
+DEPENDS:remove = "gles-user-module"

@@ -21,8 +21,8 @@ do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
 RESULT_NAME = "^^???-NOT-SUPPORTED-???^^"
-RESULT_NAME_r8a7795 = "GSX_KM_H3.tar.bz2"
-RESULT_NAME_r8a7796 = "GSX_KM_M3.tar.bz2"
+RESULT_NAME:r8a7795 = "GSX_KM_H3.tar.bz2"
+RESULT_NAME:r8a7796 = "GSX_KM_M3.tar.bz2"
 
 ASSEMBLE_FOLDER = "rogue_km"
 
