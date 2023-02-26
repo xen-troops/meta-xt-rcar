@@ -1,4 +1,4 @@
 
-FILES_${PN}_remove = " \
+FILES:${PN}:remove = " \
     /lib/firmware/rgx.sh* \
 "

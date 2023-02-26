@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Move IPLs into 'firmware' folder
 inherit collect_firmware
@@ -30,7 +30,7 @@ inherit collect_firmware
 # Pay attention that we only append to boards supported by our products.
 #
 # M3 related boards have no memory variants
-ATFW_OPT_append = " RCAR_BL33_EXECUTION_EL=1"
+ATFW_OPT:append = " RCAR_BL33_EXECUTION_EL=1"
 # H3 related boards with memory variants
 H3ULCB[4x2g] += "RCAR_BL33_EXECUTION_EL=1"
 H3[2x2g] += "RCAR_BL33_EXECUTION_EL=1"
@@ -41,7 +41,7 @@ SRC_URI += "\
     file://0003-rcar-Add-BOARD_SALVATOR_X-case-in-ddr_rank_judge.patch \
 "
 
-do_deploy_append () {
+do_deploy:append () {
     install -m 0644 ${S}/tools/renesas/rcar_layout_create/bootparam_sa0.bin ${DEPLOYDIR}/bootparam_sa0.bin
     install -m 0644 ${S}/tools/renesas/rcar_layout_create/cert_header_sa6.bin ${DEPLOYDIR}/cert_header_sa6.bin
     install -m 0644 ${S}/tools/renesas/rcar_layout_create/cert_header_sa6_emmc.bin ${DEPLOYDIR}/cert_header_sa6_emmc.bin

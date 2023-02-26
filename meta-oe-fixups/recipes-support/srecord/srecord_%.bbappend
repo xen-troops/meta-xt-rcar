@@ -6,5 +6,5 @@
 # As result srec_cat is looking for functions not available on host.
 #
 # So we use rpath to use same libraries that were used for build.
-BUILD_LDFLAGS_append = " -Wl,-rpath=${STAGING_DIR}-uninative/${BUILD_ARCH}-linux/lib"
+BUILD_LDFLAGS:append = " -Wl,-rpath=${STAGING_DIR}-uninative/${BUILD_ARCH}-linux/lib"
 
