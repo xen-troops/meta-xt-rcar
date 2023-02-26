@@ -1,5 +1,5 @@
 
-EXTRA_OEMAKE_append = " \
+EXTRA_OEMAKE:append = " \
     ${@bb.utils.contains('XT_GUEST_INSTALL', 'doma', '', 'EXCLUDE_FENCE_SYNC_SUPPORT:=1', d)} \
     PVRSRV_VZ_NUM_OSID=${XT_PVR_NUM_OSID} \
 "

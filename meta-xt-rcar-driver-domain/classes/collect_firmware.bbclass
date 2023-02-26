@@ -1,6 +1,6 @@
 # Implementation note.
 # Why do we move files inside DEPLOY_DIR_IMAGE and in separate task?
-# If we put code into regular deploy_append() there is no
+# If we put code into regular deploy:append() there is no
 # guarantee that our append will be the last append. As result,
 # we may meet a situation that some code wants to work (create link
 # for example) with files that are already moved to other folder.

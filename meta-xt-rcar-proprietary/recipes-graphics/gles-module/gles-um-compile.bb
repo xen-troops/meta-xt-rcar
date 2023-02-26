@@ -18,12 +18,12 @@ BUILD = "release"
 S = "${WORKDIR}/git"
 
 PVRUM_BUILD_DIR = "^^???-NOT-SUPPORTED-???^^"
-PVRUM_BUILD_DIR_r8a7795 = "r8a7795_linux"
-PVRUM_BUILD_DIR_r8a7796 = "r8a7796_linux"
+PVRUM_BUILD_DIR:r8a7795 = "r8a7795_linux"
+PVRUM_BUILD_DIR:r8a7796 = "r8a7796_linux"
 
 RESULT_NAME = "^^???-NOT-SUPPORTED-???^^"
-RESULT_NAME_r8a7795 = "r8a77951_linux_gsx_binaries_gles.tar.bz2"
-RESULT_NAME_r8a7796 = "r8a77960_linux_gsx_binaries_gles.tar.bz2"
+RESULT_NAME:r8a7795 = "r8a77951_linux_gsx_binaries_gles.tar.bz2"
+RESULT_NAME:r8a7796 = "r8a77960_linux_gsx_binaries_gles.tar.bz2"
 
 DEPENDS = " \
     wayland-native \
@@ -36,11 +36,11 @@ DEPENDS = " \
     wayland-protocols \
 "
 
-DEPENDS_remove = " \
+DEPENDS:remove = " \
     binutils-cross-aarch64 \
 "
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     python \
     python3-core \
 "
@@ -69,9 +69,9 @@ EXCLUDED_APIS = ""
 EXTRA_OEMAKE += "EXCLUDED_APIS='${EXCLUDED_APIS}'"
 EXTRA_OEMAKE += "${@bb.utils.contains('XT_GUEST_INSTALL', 'doma', '', 'EXCLUDE_FENCE_SYNC_SUPPORT:=1', d)}"
 EXTRA_OEMAKE += "LIBCLANG_PATH=${STAGING_LIBDIR_NATIVE}/libclang.so"
-EXTRA_OEMAKE_remove = "LLVM_BUILD_DIR=${STAGING_LIBDIR}/llvm_build_dir"
+EXTRA_OEMAKE:remove = "LLVM_BUILD_DIR=${STAGING_LIBDIR}/llvm_build_dir"
 
-do_configure_prepend() {
+do_configure:prepend() {
     if [ -f ${WORKDIR}/Meta_Embedded_Toolkit-2.8.1.CentOS-5.tar.gz ]
     then
         tar -xzf ${WORKDIR}/Meta_Embedded_Toolkit-2.8.1.CentOS-5.tar.gz
@@ -82,7 +82,7 @@ do_configure_prepend() {
     fi
 }
 
-do_compile_prepend() {
+do_compile:prepend() {
     export PATH="$PATH:${WORKDIR}/recipe-sysroot-native/usr/bin/python-native"
 }
 
@@ -92,7 +92,7 @@ do_compile[depends] += "linux-renesas:do_shared_workdir"
 
 # We disable "already-stripped" QA check to suppress
 # multiple warnings regarding stripped so-libraries.
-INSANE_SKIP_${PN} += "already-stripped"
+INSANE_SKIP:${PN} += "already-stripped"
 
 ASSEMBLE_FOLDER = "rogue"
 

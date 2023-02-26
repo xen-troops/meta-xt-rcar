@@ -3,12 +3,12 @@ LIC_FILES_CHKSUM = " \
     file://MIT-COPYING;md5=8c2810fa6bfdc5ae5c15a0c1ade34054 \
 "
 
-SRC_URI_remove = " file://blacklist.conf"
+SRC_URI:remove = " file://blacklist.conf"
 
-KBUILD_OUTDIR_r8a7795 = "binary_r8a7795_linux_release/target_aarch64/kbuild/"
-KBUILD_OUTDIR_r8a7796 = "binary_r8a7796_linux_release/target_aarch64/kbuild/"
-KBUILD_OUTDIR_r8a77965 = "binary_r8a77965_linux_release/target_aarch64/kbuild/"
-KBUILD_OUTDIR_r8a77990 = "binary_r8a7799_linux_release/target_aarch64/kbuild/"
+KBUILD_OUTDIR:r8a7795 = "binary_r8a7795_linux_release/target_aarch64/kbuild/"
+KBUILD_OUTDIR:r8a7796 = "binary_r8a7796_linux_release/target_aarch64/kbuild/"
+KBUILD_OUTDIR:r8a77965 = "binary_r8a77965_linux_release/target_aarch64/kbuild/"
+KBUILD_OUTDIR:r8a77990 = "binary_r8a7799_linux_release/target_aarch64/kbuild/"
 
 module_do_install() {
     unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
@@ -17,9 +17,9 @@ module_do_install() {
     oe_runmake DISCIMAGE="${D}" install
 }
 
-FILES_${PN}_remove = " \
+FILES:${PN}:remove = " \
     ${sysconfdir}/modprobe.d/blacklist.conf \
 "
 
 # Auto load pvrsrvkm
-KERNEL_MODULE_AUTOLOAD_append = " pvrsrvkm"
+KERNEL_MODULE_AUTOLOAD:append = " pvrsrvkm"

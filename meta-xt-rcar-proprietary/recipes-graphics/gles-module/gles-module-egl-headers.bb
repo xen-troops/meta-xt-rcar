@@ -41,4 +41,4 @@ do_install() {
     install -m 644 ${S}/include/khronos/drv/EGL/eglext_REL.h ${D}/${includedir}/EGL/
 }
 
-RDEPENDS_${PN}-dev = ""
+RDEPENDS:${PN}-dev = ""
