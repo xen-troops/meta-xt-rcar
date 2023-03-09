@@ -1,0 +1,37 @@
+From b94f658a2cfb5cb74d6eb511476960b8f15a9d29 Mon Sep 17 00:00:00 2001
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Date: Thu, 9 Mar 2023 15:22:56 +0200
+Subject: [PATCH] waylandws_server: Add support for YUYV buffers
+
+WSEGLs_CreatePixmapDrawable doesn't support YUYV pixel format
+which is widely used by cameras. Fix this extending the number
+of buffer formats understood while creating pixmaps.
+
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+[port from project: pvr_um_vgpu_img branch: 1.11/5516664_5.1.0]
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+ src/waylandws_server.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/waylandws_server.c b/src/waylandws_server.c
+index 0145fe5..45f09fe 100644
+--- a/src/waylandws_server.c
++++ b/src/waylandws_server.c
+@@ -427,6 +427,13 @@ static WSEGLError WSEGLs_CreatePixmapDrawable(WSEGLDisplayHandle hDisplay,
+ 		drawable->info.pitch  = buffer->stride * 2;
+ 		drawable->info.eColorSpace = convert_format_to_color_space(buffer->format);
+ 		break;
++	case WL_KMS_FORMAT_YUYV:
++		drawable->info.pixelformat = WLWSEGL_PIXFMT_YUYV;
++		drawable->info.size = buffer->stride * buffer->height;
++		drawable->info.stride = buffer->stride;
++		drawable->info.eColorSpace = convert_format_to_color_space(buffer->format);
++		break;
++
+ 	default:
+ 		goto error;
+ 	}
+-- 
+2.34.1
+
