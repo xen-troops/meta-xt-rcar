@@ -3,7 +3,8 @@ LIC_FILES_CHKSUM = " \
     file://MIT-COPYING;md5=8c2810fa6bfdc5ae5c15a0c1ade34054 \
 "
 
-SRC_URI:remove = " file://blacklist.conf"
+SRC_URI:remove = "file://blacklist.conf"
+SRC_URI:remove = "file://0001-fixing-implicit-conversion-in-GCC-11.2.patch"
 
 KBUILD_OUTDIR:r8a7795 = "binary_r8a7795_linux_release/target_aarch64/kbuild/"
 KBUILD_OUTDIR:r8a7796 = "binary_r8a7796_linux_release/target_aarch64/kbuild/"
