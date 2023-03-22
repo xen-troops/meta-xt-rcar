@@ -12,4 +12,6 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 # is located inside this layer.
 SRC_URI:append = " \
     file://0001-r8a7795-6-65-.dtsi-Add-multichannel-audio-ranges-tha.patch \
+    file://0001-ulcb-kf.dtsi-Enable-Leopard-Imaging-LI-OV10640-490-G.patch \
+    file://0002-max9286.c-Check-whether-a-pixel-clock-is-supplied-to.patch \
 "
