@@ -3,10 +3,10 @@ LICENSE = "CLOSED"
 
 inherit deploy nopackages pkgconfig
 
-PV = "1.11"
+PV = "${@bb.utils.contains('XT_USE_DDK1_11', '1', '1.11', '1.15', d)}"
 
 PVRUM_URL ?= "git://git@gitpct.epam.com/epmd-aepr/pvr_um_vgpu_img.git"
-PVRUM_BRANCH = "1.11/5516664_5.1.0"
+PVRUM_BRANCH = "${@bb.utils.contains('XT_USE_DDK1_11', '1', '1.11/5516664_5.1.0', '1.15/6052913_5.9.0', d)}"
 SRCREV = "${AUTOREV}"
 
 COMPATIBLE_MACHINE = "(r8a7795|r8a7796)"
