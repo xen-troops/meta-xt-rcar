@@ -1,7 +1,7 @@
 DESCRIPTION = "Prebuilt package of kernel module of PowerVR GPU"
 LICENSE = "GPLv2 & MIT"
 LIC_FILES_CHKSUM = " \
-    file://GPL-COPYING;md5=60422928ba677faaa13d6ab5f5baaa1e \
+    file://GPL-COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
     file://MIT-COPYING;md5=8c2810fa6bfdc5ae5c15a0c1ade34054 \
 "
 
@@ -11,7 +11,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 S = "${WORKDIR}/git"
 
 PVRKM_URL ??= "git://git@gitpct.epam.com/epmd-aepr/pvr_km_vgpu_img.git"
-PVRKM_BRANCH ??= "1.11/5516664_5.1.0"
+PVRKM_BRANCH ??= "1.15/6052913_5.9.0"
 PVRKM_SRCREV ??= "${AUTOREV}"
 SRCREV = "${PVRKM_SRCREV}"
 
