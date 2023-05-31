@@ -1,0 +1,36 @@
+baudrate=115200
+bootdelay=3
+ethact=ravb
+ipaddr=192.168.1.10
+serverip=192.168.1.100
+initrd_high=0xffffffffffffffff
+
+tftp_xen=tftp 0x48080000 xen
+tftp_dtb=tftp 0x48000000 xen.dtb; fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device nfs; fdt set /boot_dev my_ip ${ipaddr}; fdt set /boot_dev nfs_server_ip ${serverip}; fdt set /boot_dev nfs_dir "/srv/domd"; fdt set /boot_dev domu_nfs_dir "/srv/domu"
+tftp_kernel=tftp 0x8a000000 Image
+tftp_xenpolicy=tftp 0x8c000000 xenpolicy
+tftp_initramfs=tftp 0x84000000 uInitramfs
+bootcmd_tftp=run tftp_xen; run tftp_dtb; run tftp_kernel; run tftp_xenpolicy; run tftp_initramfs; bootm 0x48080000 0x84000000 0x48000000
+
+sd0_xen=ext2load mmc 0:1 0x48080000 xen
+sd0_dtb=ext2load mmc 0:1 0x48000000 xen.dtb; fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device mmcblk1
+sd0_kernel=ext2load mmc 0:1 0x8a000000 Image
+sd0_xenpolicy=ext2load mmc 0:1 0x8c000000 xenpolicy
+sd0_initramfs=ext2load mmc 0:1 0x84000000 uInitramfs
+bootcmd_sd0=run sd0_xen; run sd0_dtb; run sd0_kernel; run sd0_xenpolicy; run sd0_initramfs; bootm 0x48080000 0x84000000 0x48000000
+
+sd3_xen=ext2load mmc 2:1 0x48080000 xen
+sd3_dtb=ext2load mmc 2:1 0x48000000 xen.dtb; fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device mmcblk2
+sd3_kernel=ext2load mmc 2:1 0x8a000000 Image
+sd3_xenpolicy=ext2load mmc 2:1 0x8c000000 xenpolicy
+sd3_initramfs=ext2load mmc 2:1 0x84000000 uInitramfs
+bootcmd_sd3=run sd3_xen; run sd3_dtb; run sd3_kernel; run sd3_xenpolicy; run sd3_initramfs; bootm 0x48080000 0x84000000 0x48000000
+
+emmc_xen=ext2load mmc 1:1 0x48080000 xen
+emmc_dtb=ext2load mmc 1:1 0x48000000 xen.dtb; fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device mmcblk0
+emmc_kernel=ext2load mmc 1:1 0x8a000000 Image
+emmc_xenpolicy=ext2load mmc 1:1 0x8c000000 xenpolicy
+emmc_initramfs=ext2load mmc 1:1 0x84000000 uInitramfs
+bootcmd_emmc=run emmc_xen; run emmc_dtb; run emmc_kernel; run emmc_xenpolicy; run emmc_initramfs; bootm 0x48080000 0x84000000 0x48000000
+
+bootcmd=run bootcmd_emmc
