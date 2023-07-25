@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 RENESAS_BSP_URL = "git://github.com/xen-troops/linux.git"
 
@@ -7,7 +7,7 @@ SRCREV = "${AUTOREV}"
 LINUX_VERSION = "5.10.41"
 
 KBUILD_DEFCONFIG_rcar = ""
-SRC_URI_append = " \
+SRC_URI:append = " \
 	file://defconfig \
 	file://0001-Revert-tee-optee-Added-optee_rcar_suspend_sync-and-o.patch \
 	file://0002-Revert-tee-optee-replace-use-of-ioremap_nocache-with.patch \
@@ -20,14 +20,14 @@ SRC_URI_append = " \
 	file://salvator-generic-domu.dts;subdir=git/arch/${ARCH}/boot/dts/renesas \
 "
 
-KERNEL_DEVICETREE_append = " renesas/salvator-generic-domu.dtb"
+KERNEL_DEVICETREE:append = " renesas/salvator-generic-domu.dtb"
 
-KERNEL_FEATURES_remove = "cfg/virtio.scc"
+KERNEL_FEATURES:remove = "cfg/virtio.scc"
 
 # Ignore in-tree defconfig
 KBUILD_DEFCONFIG = ""
 
-do_deploy_append() {
+do_deploy:append() {
     find ${D}/boot -iname "vmlinux*" -exec tar -cJvf ${STAGING_KERNEL_BUILDDIR}/vmlinux.tar.xz {} \;
 }
 

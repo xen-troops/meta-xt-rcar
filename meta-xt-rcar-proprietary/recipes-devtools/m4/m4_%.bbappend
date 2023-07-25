@@ -1,1 +1,1 @@
-SRC_URI_remove = "file://disable_builtin_mul_overflow.patch"
+SRC_URI:remove = "file://disable_builtin_mul_overflow.patch"

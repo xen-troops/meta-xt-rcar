@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 RENESAS_BSP_URL = "git://github.com/xen-troops/linux.git"
 
@@ -6,7 +6,7 @@ BRANCH = "v5.10.41/rcar-5.1.4.1-xt0.1"
 SRCREV = "${AUTOREV}"
 LINUX_VERSION = "5.10.41"
 
-SRC_URI_append = " \
+SRC_URI:append = " \
     file://xen-chosen.dtsi;subdir=git/arch/${ARCH}/boot/dts/renesas \
     file://ulcb-ab.dtsi;subdir=git/arch/${ARCH}/boot/dts/renesas \
 "

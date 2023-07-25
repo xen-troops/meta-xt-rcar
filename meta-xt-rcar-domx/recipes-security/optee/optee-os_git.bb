@@ -51,7 +51,7 @@ ANDROID_EXTRA_OEMAKE = " \
 
 EXTRA_OEMAKE += "${@bb.utils.contains('XT_GUEST_INSTALL', 'doma', '${ANDROID_EXTRA_OEMAKE}', '', d)}"
 
-OPTEE_ARCH_aarch64 = "arm64"
+OPTEE_ARCH:aarch64 = "arm64"
 
 do_configure() {
 }
@@ -75,8 +75,8 @@ do_deploy() {
 }
 addtask deploy before do_build after do_compile
 
-FILES_${PN} = ""
-FILES_${PN}-staticdev = "/usr/include/optee/"
+FILES:${PN} = ""
+FILES:${PN}-staticdev = "/usr/include/optee/"
 
 # Move tee.bin into 'firmware' folder
 inherit collect_firmware

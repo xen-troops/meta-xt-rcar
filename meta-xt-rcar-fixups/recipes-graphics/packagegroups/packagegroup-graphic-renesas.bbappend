@@ -1,3 +1,3 @@
-RDEPENDS_packagegroup-graphics-renesas-wayland_remove = " \
+RDEPENDS:packagegroup-graphics-renesas-wayland:remove = " \
     wayland-wsegl \
 "
