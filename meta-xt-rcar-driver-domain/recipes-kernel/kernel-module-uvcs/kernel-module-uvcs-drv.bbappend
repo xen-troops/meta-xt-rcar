@@ -1,5 +1,5 @@
-KERNEL_MODULE_AUTOLOAD_append = " uvcs_drv"
+KERNEL_MODULE_AUTOLOAD:append = " uvcs_drv"
 
-FILES_${PN}_append = " \
+FILES:${PN}:append = " \
     ${sysconfdir}/modules-load.d \
 "

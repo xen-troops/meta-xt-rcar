@@ -1,5 +1,5 @@
-KERNEL_MODULE_AUTOLOAD_append = " mmngrbuf"
+KERNEL_MODULE_AUTOLOAD:append = " mmngrbuf"
 
-FILES_${PN}_append = " \
+FILES:${PN}:append = " \
     ${sysconfdir}/modules-load.d \
 "
