@@ -39,6 +39,7 @@ H3[4x2g] += "RCAR_BL33_EXECUTION_EL=1"
 SRC_URI += "\
     file://0002-tools-Produce-two-cert_header_sa6-images.patch \
     file://0003-rcar-Add-BOARD_SALVATOR_X-case-in-ddr_rank_judge.patch \
+    file://0001-rcar-gen3-plat-fix-copy-paste-issue-with-runtime-con.patch \
 "
 
 do_deploy:append () {
