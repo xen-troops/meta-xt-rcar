@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://${S}/LICENSE.md;md5=daa2bcccc666345ab8940aab1315a4fa"
 
 SRC_URI = "git://github.com/OP-TEE/optee_test.git"
 
-# SRCREV us not defined intentionaly, and should be defined in product's bbappend
+# SRCREV is not defined intentionaly, and should be defined in product's bbappend
 
 # PV should be defined in product's bbappend, eg.: "3.13.0+git${SRCPV}"
 
