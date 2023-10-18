@@ -1,5 +1,5 @@
-SUMMARY = "Boot scripts for S4 Spider board"
-DESCRIPTION = "Set of U-boot scripts that automate boot process on Spider S4"
+SUMMARY = "Boot scripts for Gen4 boards"
+DESCRIPTION = "Set of U-boot scripts that automate boot process on Gen4 boards"
 
 PV = "0.1"
 LICENSE = "MIT"
@@ -10,16 +10,16 @@ inherit deploy
 DEPENDS += "u-boot-mkimage-native"
 
 SRC_URI = "\
-    file://boot-tftp.txt \
-    file://boot-emmc.txt \
+    file://boot-tftp.txt.${MACHINE} \
+    file://boot-emmc.txt.${MACHINE} \
 "
 
 do_configure[noexec] = "1"
 do_install[noexec] = "1"
 
 do_compile() {
-    uboot-mkimage -T script -d ${WORKDIR}/boot-tftp.txt ${B}/boot-tftp.uImage
-    uboot-mkimage -T script -d ${WORKDIR}/boot-emmc.txt ${B}/boot-emmc.uImage
+    uboot-mkimage -T script -d ${WORKDIR}/boot-tftp.txt.${MACHINE} ${B}/boot-tftp.uImage
+    uboot-mkimage -T script -d ${WORKDIR}/boot-emmc.txt.${MACHINE} ${B}/boot-emmc.uImage
 }
 
 do_deploy() {
