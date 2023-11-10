@@ -4,7 +4,8 @@ HOMEPAGE = "https://github.com/OP-TEE/optee_test"
 LICENSE = "BSD & GPLv2"
 LIC_FILES_CHKSUM = "file://${S}/LICENSE.md;md5=daa2bcccc666345ab8940aab1315a4fa"
 
-SRC_URI = "git://github.com/OP-TEE/optee_test.git"
+BRANCH = "master"
+SRC_URI = "git://github.com/OP-TEE/optee_test.git;branch=${BRANCH};protocol=https"
 
 # SRCREV is not defined intentionaly, and should be defined in product's bbappend
 
