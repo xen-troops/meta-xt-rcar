@@ -1,6 +1,7 @@
 FILESEXTRAPATHS:append := ":${THISDIR}/${PN}"
 
-SRC_URI:append = "file://weston-seats.rules \
+SRC_URI:append = " \
+    file://weston-seats.rules \
     file://weston \
 "
 
