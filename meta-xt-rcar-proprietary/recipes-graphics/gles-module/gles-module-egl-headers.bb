@@ -1,7 +1,10 @@
 
 PVRUM_URL ?= "git://git@gitpct.epam.com/epmd-aepr/pvr_um_vgpu_img.git"
 PVRUM_BRANCH = "${@bb.utils.contains('XT_USE_DDK1_11', '1', '1.11/5516664_5.1.0', '1.15/6052913_5.9.0', d)}"
-SRCREV = "${AUTOREV}"
+SRCREV = "${@bb.utils.contains('XT_USE_DDK1_11', '1', \
+            '4ed61e604d925bfce8ab16645f48425a581496c7', \
+            'e172e94c7d61186fe5b64db68fdef949c9ee2189', \
+            d)}"
 
 SRC_URI = " \
     ${PVRUM_URL};protocol=ssh;branch=${PVRUM_BRANCH} \
