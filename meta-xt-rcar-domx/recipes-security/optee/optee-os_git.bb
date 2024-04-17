@@ -9,7 +9,7 @@ S = "${WORKDIR}/git"
 
 SRC_URI = "git://github.com/xen-troops/optee_os.git;branch=3.9-xt-linux"
 PV = "git${SRCPV}"
-SRCREV = "${AUTOREV}"
+SRCREV = "192b616c9715604a2d2b16bc61758d160550806e"
 
 COMPATIBLE_MACHINE ?= "(salvator-x|h3ulcb|m3ulcb|m3nulcb)"
 OPTEEMACHINE = "rcar"

@@ -1,7 +1,7 @@
 
 PVRUM_URL ?= "git://git@gitpct.epam.com/epmd-aepr/pvr_um_vgpu_img.git"
 PVRUM_BRANCH = "1.11/5516664_5.1.0"
-SRCREV = "${AUTOREV}"
+SRCREV = "4ed61e604d925bfce8ab16645f48425a581496c7"
 
 SRC_URI = " \
     ${PVRUM_URL};protocol=ssh;branch=${PVRUM_BRANCH} \
