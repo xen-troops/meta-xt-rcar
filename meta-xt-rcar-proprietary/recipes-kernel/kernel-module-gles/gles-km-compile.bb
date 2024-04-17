@@ -12,7 +12,7 @@ S = "${WORKDIR}/git"
 
 PVRKM_URL ??= "git://git@gitpct.epam.com/epmd-aepr/pvr_km_vgpu_img.git"
 PVRKM_BRANCH ??= "1.11/5516664_5.1.0"
-PVRKM_SRCREV ??= "${AUTOREV}"
+PVRKM_SRCREV ??= "6994a4be87075975665fcef1fd95c087b0a007c8"
 SRCREV = "${PVRKM_SRCREV}"
 
 SRC_URI = "${PVRKM_URL};protocol=ssh;branch=${PVRKM_BRANCH}"
