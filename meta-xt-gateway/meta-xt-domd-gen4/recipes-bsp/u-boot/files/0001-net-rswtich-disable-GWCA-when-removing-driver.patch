@@ -1,4 +1,4 @@
-From 49b7693ddb9ec4e1593e594b2ac19747cf366809 Mon Sep 17 00:00:00 2001
+From 8f7dd0700c2e21396e345bb3d397b55855b865bc Mon Sep 17 00:00:00 2001
 From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 Date: Thu, 2 Feb 2023 23:39:13 +0200
 Subject: [PATCH] net: rswtich: disable GWCA when removing driver
@@ -25,19 +25,19 @@ Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
  1 file changed, 6 insertions(+)
 
 diff --git a/drivers/net/rswitch.c b/drivers/net/rswitch.c
-index daebd80ff9..2fd0f52582 100644
+index 76fab6779d..49d52353fc 100644
 --- a/drivers/net/rswitch.c
 +++ b/drivers/net/rswitch.c
-@@ -1328,6 +1328,7 @@ err_mdio_alloc:
- static int rswitch_remove(struct udevice *dev)
+@@ -1421,6 +1421,7 @@ static int rswitch_free_pkt(struct udevice *dev, uchar *packet, int length)
+ static void rswitch_stop(struct udevice *dev)
  {
  	struct rswitch_priv *priv = dev_get_priv(dev);
 +	int ret;
  
- 	if (!priv->parallel_mode) {
- 		clk_disable(&priv->rsw_clk);
-@@ -1337,6 +1338,11 @@ static int rswitch_remove(struct udevice *dev)
- 		mdio_unregister(priv->etha.bus);
+ 	if (!priv->parallel_mode)
+ 		phy_shutdown(priv->etha.phydev);
+@@ -1589,6 +1590,11 @@ static int rswitch_remove(struct udevice *dev)
+ 		free(priv->rx_desc);
  	}
  
 +	/* Turn off GWCA to make sure that there will be no new packets */
@@ -48,6 +48,3 @@ index daebd80ff9..2fd0f52582 100644
  	unmap_physmem(priv->addr, MAP_NOCACHE);
  	unmap_physmem(priv->etha.serdes_addr, MAP_NOCACHE);
  
--- 
-2.38.1
-
