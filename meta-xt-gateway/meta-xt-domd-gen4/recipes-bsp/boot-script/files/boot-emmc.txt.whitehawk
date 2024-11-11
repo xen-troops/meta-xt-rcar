@@ -1,0 +1,18 @@
+env set fdt_high 0xFFFFFFFFFFFFFFFF
+env set initrd_high 0xFFFFFFFFFFFFFFFF
+
+# Read images from eMMC
+ext2load mmc 0:1 0x48000000 xen.dtb
+ext2load mmc 0:1 0x84000000 uInitramfs
+ext2load mmc 0:1 0x48300000 Image
+ext2load mmc 0:1 0x48080000 xen
+ext2load mmc 0:1 0x48070000 xenpolicy
+
+# Configure boot device in DTS
+fdt addr 0x48000000
+fdt resize
+fdt mknode / boot_dev
+fdt set /boot_dev device mmcblk0
+
+# Boot the board
+bootm 0x48080000 0x84000000 0x48000000
