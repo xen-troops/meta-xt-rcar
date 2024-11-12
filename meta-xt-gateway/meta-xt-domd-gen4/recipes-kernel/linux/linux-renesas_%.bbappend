@@ -9,12 +9,14 @@ SRC_URI:append = "\
 "
 
 SRC_URI:append = " \
-    file://r8a779f0.cfg \
     file://rswitch.cfg \
     file://dmatest.cfg \
     file://gpio.cfg \
     file://l3offload.cfg \
 "
+
+SRC_URI:append:r8a779f0 = " file://r8a779f0.cfg"
+SRC_URI:append:r8a779g0 = " file://r8a779g0.cfg"
 
 ADDITIONAL_DEVICE_TREES = "${XT_DEVICE_TREES}"
 
