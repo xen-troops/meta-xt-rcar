@@ -9,3 +9,7 @@ SRC_URI += "\
 SRC_URI:append:r8a779f0 = " \
     file://0002-HACK-s4-Configure-IPMMU-registers.patch \
 "
+
+SRC_URI:append:r8a779g0 = " \
+    file://0001-HACK-v4h-Configure-IPMMU-registers.patch \
+"

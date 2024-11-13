@@ -1,0 +1,52 @@
+From e35ec59cda0f794433933a821d03d04c0a66c8ae Mon Sep 17 00:00:00 2001
+Message-Id: <e35ec59cda0f794433933a821d03d04c0a66c8ae.1724919246.git.mykyta_poturai@epam.com>
+From: Mykyta Poturai <mykyta_poturai@epam.com>
+Date: Thu, 29 Aug 2024 11:13:51 +0300
+Subject: [PATCH] [HACK] v4h: Configure IPMMU registers
+
+Enable second stage translation in IPMMU.
+
+Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+---
+ plat/renesas/rcar_gen4/bl31_plat_setup.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/plat/renesas/rcar_gen4/bl31_plat_setup.c b/plat/renesas/rcar_gen4/bl31_plat_setup.c
+index a174868b3..720b214e8 100644
+--- a/plat/renesas/rcar_gen4/bl31_plat_setup.c
++++ b/plat/renesas/rcar_gen4/bl31_plat_setup.c
+@@ -72,6 +72,23 @@ void bl31_plat_arch_setup(void)
+ 	rcar_pwrc_code_copy_to_system_ram();
+ }
+ 
++static void rcar_ipmmu_setup(void)
++{
++	mmio_write_32(0xeefc0000 + 0x1504, 0x01000000);
++	mmio_write_32(0xeefc0000 + 0x1500, 0xC0000000);
++
++	// TODO: Deal with IPMMU-IR
++	mmio_write_32(0xeee00000 + 0x1500, 0xC0000000);
++	mmio_write_32(0xeef40000 + 0x1500, 0xC0000000);
++	mmio_write_32(0xeef00000 + 0x1500, 0xC0000000);
++	mmio_write_32(0xeed00000 + 0x1500, 0xC0000000);
++	mmio_write_32(0xee4c0000 + 0x1500, 0xC0000000);
++	mmio_write_32(0xee480000 + 0x1500, 0xC0000000);
++	mmio_write_32(0xeed40000 + 0x1500, 0xC0000000);
++	mmio_write_32(0xeedc0000 + 0x1500, 0xC0000000);
++	mmio_write_32(0xeeec0000 + 0x1500, 0xC0000000);
++	mmio_write_32(0xeee80000 + 0x1500, 0xC0000000);
++}
+ void bl31_platform_setup(void)
+ {
+ 	rcar_mssr_setup();
+@@ -91,6 +108,7 @@ void bl31_platform_setup(void)
+ 
+ 	plat_rcar_scmi_setup();
+ 	rcar_pwrc_setup();
++	rcar_ipmmu_setup();
+ 	rcar_ptp_setup();
+ }
+ 
+-- 
+2.34.1
+
