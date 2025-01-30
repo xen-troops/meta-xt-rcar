@@ -1,7 +1,4 @@
-EVAL_FLAG = "${@bb.utils.contains('XT_USE_DDK1_11', '1', 'EXCLUDE_FENCE_SYNC_SUPPORT:=1', '', d)}"
-
 EXTRA_OEMAKE:append = " \
-    ${@bb.utils.contains('XT_GUEST_INSTALL', 'doma', '', '${EVAL_FLAG}', d)} \
     PVRSRV_VZ_NUM_OSID=${XT_PVR_NUM_OSID} \
 "
 
