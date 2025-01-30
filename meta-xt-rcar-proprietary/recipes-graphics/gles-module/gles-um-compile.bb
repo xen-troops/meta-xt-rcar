@@ -3,14 +3,11 @@ LICENSE = "CLOSED"
 
 inherit deploy nopackages pkgconfig
 
-PV = "${@bb.utils.contains('XT_USE_DDK1_11', '1', '1.11', '1.15', d)}"
+PV = "1.15"
 
 PVRUM_URL ?= "git://git@gitpct.epam.com/epmd-aepr/pvr_um_vgpu_img.git"
-PVRUM_BRANCH = "${@bb.utils.contains('XT_USE_DDK1_11', '1', '1.11/5516664_5.1.0', '1.15/6052913_5.9.0', d)}"
-SRCREV = "${@bb.utils.contains('XT_USE_DDK1_11', '1', \
-            '4ed61e604d925bfce8ab16645f48425a581496c7', \
-            'e172e94c7d61186fe5b64db68fdef949c9ee2189', \
-            d)}"
+PVRUM_BRANCH = "1.15/6052913_5.9.0"
+SRCREV = "e172e94c7d61186fe5b64db68fdef949c9ee2189"
 
 COMPATIBLE_MACHINE = "(r8a7795|r8a7796)"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
@@ -70,8 +67,6 @@ EXTRA_OEMAKE += "BIN_DESTDIR=${bindir}"
 EXTRA_OEMAKE += "SHARE_DESTDIR=${datadir}"
 EXCLUDED_APIS = "opencl vulkan"
 EXTRA_OEMAKE += "EXCLUDED_APIS='${EXCLUDED_APIS}'"
-EVAL_FLAG = "${@bb.utils.contains('XT_USE_DDK1_11', '1', 'EXCLUDE_FENCE_SYNC_SUPPORT:=1', '', d)}"
-EXTRA_OEMAKE += "${@bb.utils.contains('XT_GUEST_INSTALL', 'doma', '', '${EVAL_FLAG}', d)}"
 EXTRA_OEMAKE += "LIBCLANG_PATH=${STAGING_LIBDIR_NATIVE}/libclang.so"
 EXTRA_OEMAKE:remove = "LLVM_BUILD_DIR=${STAGING_LIBDIR}/llvm_build_dir"
 
